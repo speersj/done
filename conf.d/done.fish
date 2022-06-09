@@ -20,6 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# HACK
+# this plugin runs swaymsg commands if $SWAYSOCK is defined
+# distrobox containers seem to inherit environment variables from the host,
+# so $SWAYSOCK is defined even if the container does not have a sway/swaymsg executable
+# this check disables the plugin entirely if swaymsg executable does not exist
+if not test -x swaymsg
+    exit
+end
+
 if not status is-interactive
     exit
 end
